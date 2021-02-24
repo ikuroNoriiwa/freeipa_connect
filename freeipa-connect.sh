@@ -32,4 +32,3 @@ klist
 sudo ipa config-mod --defaultshell=/bin/bash
 
 
-
