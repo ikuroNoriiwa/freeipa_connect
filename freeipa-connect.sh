@@ -10,12 +10,8 @@ ipa_admin_user="admin"
 
 sudo hostnamectl set-hostname $hostname.$domaine
 sudo apt install freeipa-client -y
-sudo echo "$ipa_server_ip	$ipa_server_name.$domaine	$ipa_server_name" >> /etc/hosts
-ipa-client-install --hostname=`hostname -f` \
-	--mkhomedir \
-	--server=$ipa_server_name.$domaine \ 
-	--domain $domaine \ 
-	--realm $realm
+sudo -- sh -c  "echo \"$ipa_server_ip   $ipa_server_name.$domaine       $ipa_server_name\" >> /etc/hosts"
+sudo ipa-client-install --hostname=`hostname -f` --mkhomedir --server=$ipa_server_name.$domaine --domain $domaine --realm $realm
 
 sudo echo "Name: activate mkhomedir
 Default: yes
@@ -27,8 +23,9 @@ required pam_mkhomedir.so umask=0022 skel=/etc/skel" >> /usr/share/pam-configs/m
 sudo pam-auth-update
 
 sudo kinit $ipa_admin_user
-klist
+sudo klist
 
 sudo ipa config-mod --defaultshell=/bin/bash
+
 
 
