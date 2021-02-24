@@ -10,7 +10,8 @@ ipa_admin_user="admin"
 
 sudo hostnamectl set-hostname $hostname.$domaine
 sudo apt install freeipa-client -y
-sudo -- sh -c  "echo \"$ipa_server_ip   $ipa_server_name.$domaine       $ipa_server_name\" >> /etc/hosts"
+sudo -- sh -c "echo \"$ipa_server_ip   $ipa_server_name.$domaine       $ipa_server_name\" >> /etc/hosts"
+sudo -- sh -c "echo \"127.0.1.1	$hostname.$domaine	$hostname\" >> /etc/hosts"
 sudo ipa-client-install --hostname=`hostname -f` --mkhomedir --server=$ipa_server_name.$domaine --domain $domaine --realm $realm
 
 sudo echo "Name: activate mkhomedir
